@@ -4,7 +4,7 @@
 
 # Ignite Timer
 
-Uma ferramenta para manitorar o tempo, seguindo a mesma ideia do Pomodoro
+Uma ferramenta para monitorar o tempo, seguindo a mesma ideia do Pomodoro
 
 ## Apêndice
 
@@ -36,7 +36,7 @@ Insira um gif ou um link de alguma demonstração
 
 ## Stack utilizada
 
-**Front-end:** React, Styled-Components, TypeScript
+**Front-end:** React, Styled-Components, TypeScript, Eslint
 
 
 ## Melhorias
