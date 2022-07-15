@@ -1,14 +1,13 @@
 import { ReactElement } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Header } from '../components/Header'
+import { Header } from '../../components/Header'
+import { Container } from './styles'
 
 export function DefaultLayout(): ReactElement {
   return (
-    <div>
+    <Container>
       <Header />
-      <main>
-        <Outlet />
-      </main>
-    </div>
+      <Outlet />
+    </Container>
   )
 }
