@@ -98,6 +98,10 @@ export function Home(): ReactElement {
 
   console.log(activeCycle)
 
+  useEffect(() => {
+    if (activeCycle) document.title = `Timer ${minutes}:${seconds}`
+  }, [activeCycle, minutes, seconds])
+
   const task = watch('task')
   const isSubmitDisabled = !task
   return (
