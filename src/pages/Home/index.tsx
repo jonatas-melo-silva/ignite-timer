@@ -13,6 +13,7 @@ import {
   TaskInput,
   MinutesAmountInput,
 } from './styles'
+
 import { DataList } from '../../components/DataList'
 
 const newCycleFormValidatorSchema = zod.object({
@@ -23,12 +24,18 @@ const newCycleFormValidatorSchema = zod.object({
     .max(60, 'O ciclo deve ter no máximo 60 minutos'),
 })
 
+type NewCycleFormData = zod.infer<typeof newCycleFormValidatorSchema>
+
 export function Home(): ReactElement {
-  const { register, handleSubmit, watch } = useForm({
+  const { register, handleSubmit, watch } = useForm<NewCycleFormData>({
     resolver: zodResolver(newCycleFormValidatorSchema),
+    defaultValues: {
+      task: '',
+      minutesAmount: 0,
+    },
   })
 
-  function handleCreateNewCycle(data: any): void {
+  function handleCreateNewCycle(data: NewCycleFormData): void {
     console.log(data)
   }
 
