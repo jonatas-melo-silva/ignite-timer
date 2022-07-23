@@ -1,8 +1,9 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { Play } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
+import { differenceInSeconds } from 'date-fns'
 
 import {
   HomeContainer,
@@ -30,7 +31,7 @@ interface Cycle {
   id: string
   task: string
   minutesAmount: number
-  startDate: string
+  startDate: Date
   status: 'pending' | 'finished' | 'canceled'
 }
 
@@ -38,6 +39,26 @@ export function Home(): ReactElement {
   const [cycle, setCycle] = useState<Cycle[]>([])
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   const [amountsSecondsPassed, setAmountsSecondsPassed] = useState<number>(0)
+
+  const activeCycle = cycle.find(
+    (cycleIsActive) => cycleIsActive.id === activeCycleId,
+  )
+
+  useEffect(() => {
+    let interval: number
+
+    if (activeCycle) {
+      interval = setInterval(() => {
+        setAmountsSecondsPassed(
+          differenceInSeconds(new Date(), activeCycle.startDate),
+        )
+      }, 1000)
+    }
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [activeCycle])
 
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
     resolver: zodResolver(newCycleFormValidatorSchema),
@@ -54,18 +75,17 @@ export function Home(): ReactElement {
       id,
       task: data.task,
       minutesAmount: data.minutesAmount,
-      startDate: String(new Date()),
+      startDate: new Date(),
       status: 'pending',
     }
 
     setCycle((state) => [...state, newCycle])
     setActiveCycleId(id)
+    setAmountsSecondsPassed(0)
 
     console.log(data)
     reset()
   }
-
-  const activeCycle = cycle.find((cycle) => cycle.id === activeCycleId)
 
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
   const currentSeconds = activeCycle ? totalSeconds - amountsSecondsPassed : 0
