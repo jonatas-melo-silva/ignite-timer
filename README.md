@@ -36,7 +36,7 @@ Insira um gif ou um link de alguma demonstração
 
 ## Stack utilizada
 
-**Front-end:** React, Styled-Components, TypeScript, Eslint, React-Router-Dom, Phosphor-React, React-Hook-Form, @hookform/resolvers, Zod, date-fns
+**Front-end:** React, Styled-Components, TypeScript, Eslint, React-Router-Dom, Phosphor-React, React-Hook-Form, @hookform/resolvers, Zod, date-fns, Immer
 
 
 ## Melhorias
