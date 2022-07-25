@@ -22,30 +22,11 @@ export function cyclesReducer(state: CycleState, action: any) {
 
   switch (action.type) {
     case ActionTypes.CREATE_NEW_CYCLE:
-      // return {
-      //   ...state,
-      //   cycles: [...state.cycles, action.payload],
-      //   activeCycleId: action.payload.id,
-      // }
       return produce(state, (draft) => {
         draft.cycles.push(action.payload)
         draft.activeCycleId = action.payload.id
       })
     case ActionTypes.INTERRUPT_CURRENT_CYCLE: {
-      // return {
-      //   ...state,
-      //   cycles: state.cycles.map((cycle) => {
-      //     if (cycle.id === state.activeCycleId) {
-      //       return {
-      //         ...cycle,
-      //         interruptedDate: new Date(),
-      //         status: 'interrupted',
-      //       }
-      //     }
-      //     return cycle
-      //   }),
-      //   activeCycleId: null,
-      // }
       const currentCycleIndex = state.cycles.findIndex(
         (cycle) => cycle.id === state.activeCycleId,
       )
@@ -60,20 +41,6 @@ export function cyclesReducer(state: CycleState, action: any) {
       })
     }
     case ActionTypes.MARK_CURRENT_CYCLE_AS_FINISHED: {
-      // return {
-      //   ...state,
-      //   cycles: state.cycles.map((cycle) => {
-      //     if (cycle.id === state.activeCycleId) {
-      //       return {
-      //         ...cycle,
-      //         finishedDate: new Date(),
-      //         status: 'concluded',
-      //       }
-      //     }
-      //     return cycle
-      //   }),
-      //   activeCycleId: null,
-      // }
       const currentCycleIndex = state.cycles.findIndex(
         (cycle) => cycle.id === state.activeCycleId,
       )
